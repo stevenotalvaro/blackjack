@@ -14,8 +14,9 @@ let puntosJugador = 0,
 
 // Referencias HTML
 const btnPedir = document.querySelector('#btnPedir');
-const puntosSmall = document.querySelector('small');
+const puntosSmall = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
+const divCartasComputadora = document.querySelector('#computadora-cartas');
 
 
 // esta funcion crea una nueva baraja
@@ -59,13 +60,35 @@ const valorCarta = (carta) => {
         valor * 1;
 }
 
+// turno de la computador
+const turnoComputadora = (puntosMinimos) => {
+    do {
+        const carta = pedirCarta();
+        puntosComputadora = puntosComputadora + valorCarta(carta);
+        puntosSmall[1].innerHTML = puntosComputadora;
+
+        // <img class="carta" src="./assets/cartas/2C.png">
+
+
+        const crearCartasJugador = document.createElement('img');
+        crearCartasJugador.src = './assets/cartas/' + carta + '.png';
+        crearCartasJugador.classList.add('carta');
+        divCartasComputadora.append(crearCartasJugador);
+
+        if (puntosMinimos > 21) {
+            break;
+        }
+
+    } while ((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21))
+}
+
+
 // Eventos
 
 btnPedir.addEventListener('click', () => {
     const carta = pedirCarta();
     puntosJugador = puntosJugador + valorCarta(carta);
-    console.log(puntosJugador);
-    puntosSmall.innerHTML = puntosJugador;
+    puntosSmall[0].innerHTML = puntosJugador;
 
     // <img class="carta" src="./assets/cartas/2C.png">
 
@@ -78,9 +101,12 @@ btnPedir.addEventListener('click', () => {
     if (puntosJugador > 21) {
         console.warn('Lo siento, mucho perdiste');
         btnPedir.disabled = true;
+        turnoComputadora(puntosJugador);
     } else if (puntosJugador === 21) {
         console.warn('21, genial');
         btnPedir.disabled = true;
+        turnoComputadora(puntosJugador);
+
     }
 
 })
