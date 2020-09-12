@@ -14,6 +14,7 @@ let puntosJugador = 0,
 
 // Referencias HTML
 const btnPedir = document.querySelector('#btnPedir');
+const btnDetener = document.querySelector('#btnDetener');
 const puntosSmall = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
 const divCartasComputadora = document.querySelector('#computadora-cartas');
@@ -101,12 +102,19 @@ btnPedir.addEventListener('click', () => {
     if (puntosJugador > 21) {
         console.warn('Lo siento, mucho perdiste');
         btnPedir.disabled = true;
+        btnPedir.disabled = true;
         turnoComputadora(puntosJugador);
     } else if (puntosJugador === 21) {
         console.warn('21, genial');
         btnPedir.disabled = true;
+        btnPedir.disabled = true;
         turnoComputadora(puntosJugador);
 
     }
+});
 
-})
+btnDetener.addEventListener('click', () => {
+    btnDetener.disabled = true;
+    btnPedir.disabled = true;
+    turnoComputadora(puntosJugador);
+});
