@@ -73,8 +73,14 @@ btnPedir.addEventListener('click', () => {
     const crearCartasJugador = document.createElement('img');
     crearCartasJugador.src = './assets/cartas/' + carta + '.png';
     crearCartasJugador.classList.add('carta');
-
-
     divCartasJugador.append(crearCartasJugador);
+
+    if (puntosJugador > 21) {
+        console.warn('Lo siento, mucho perdiste');
+        btnPedir.disabled = true;
+    } else if (puntosJugador === 21) {
+        console.warn('21, genial');
+        btnPedir.disabled = true;
+    }
 
 })
